@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beyond.Goode&Bade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script type="module" src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+</head>
+
+<body>
+
+    <audio id="myAudio">
+        <source src="audio/Johnny B. Goode.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <nav id="anchors" class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="images/logoblack.png" alt="Logo" class="nav-image">
+        <a href="#/" id="home-href">HOME</a>
+        <a href="#/24Hour" id="24Hour-href">24HOUR</a>
+        <a href="#/login" id="login-href">LOGIN</a>
+        <a href="#/signup" id="signup-href">SIGNUP</a>
+        <a id="playButton">
+            <img src="images/Music.png" alt="Music" class="nav-image2">
+        </a>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="product-grid">
+                <div class="product" style="background-image: url(images/ChangingLightbulbs.png);">
+                    <button class="add-to-cart" data-name="Changing Lightbulbs" data-price="9.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/GridInJava.png);">
+                    <button class="add-to-cart" data-name="Grid In Java" data-price="19.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/HauntedHouse.png);">
+                    <button class="add-to-cart" data-name="HauntedHouse" data-price="29.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/PlayingMariana.png);">
+                    <button class="add-to-cart" data-name="Playing With Mariana" data-price="99.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/SkyDive.png);">
+                    <button class="add-to-cart" data-name="SkyDive" data-price="59.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/Snowboard.png);">
+                    <button class="add-to-cart" data-name="Snowboard" data-price="89.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/Strip.png);">
+                    <button class="add-to-cart" data-name="Strip Club" data-price="209.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/Surfing.png);">
+                    <button class="add-to-cart" data-name="Surfing" data-price="9.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/TheBullDog.png);">
+                    <button class="add-to-cart" data-name="The BullDog" data-price="69.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/TheJackass.png);">
+                    <button class="add-to-cart" data-name="The Jackass" data-price="39.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/TheyAllEnded.png);">
+                    <button class="add-to-cart" data-name="They All Ended" data-price="49.99">Add to Cart</button>
+                </div>
+                <div class="product" style="background-image: url(images/UndergroundParty.png);">
+                    <button class="add-to-cart" data-name="UndergroundParty" data-price="29.99">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Beyond.Goode&Bade All rights reserved.</p>
+    </footer>
+
+    <div class="cart" id="shoppingCart">
+        <h2>Shopping Cart</h2>
+        <div id="cartItems"></div>
+        <button class="close-cart" onclick="toggleCart()">Close Cart</button>
+        <button class="remove-last" onclick="removeLastItem()">Remove Last Item</button>
+        <button class="close-last" onclick="goPay()">Payment</button>
+    </div>
+
+    <!--Needs to go to services-->
+    <script>
+        // JavaScript to handle cart actions
+        function toggleCart() {
+            const cart = document.getElementById('shoppingCart');
+            cart.classList.toggle('open');
+        }
+
+        function addToCart(event) {
+            const button = event.target;
+            const name = button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+
+            const cartItems = document.getElementById('cartItems');
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <p>${name}</p>
+                <p>$${price}</p>
+            `;
+            cartItems.appendChild(cartItem);
+
+            if (!document.getElementById('shoppingCart').classList.contains('open')) {
+                toggleCart();
+            }
+        }
+
+        function removeLastItem() {
+            const cartItems = document.getElementById('cartItems');
+            if (cartItems.lastChild) {
+                cartItems.removeChild(cartItems.lastChild);
+            }
+        }
+
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        function goPay() {
+            window.location.href = "html/payment.html";
+        }
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            var audio = document.getElementById('myAudio');
+            var button = document.getElementById('playButton');
+
+            if (audio.paused) {
+                audio.play();
+                button = '<img src="images/Music.png" alt="Music" class="nav-image2">'; // Change button to Pause Audio
+            } else {
+                audio.pause();
+                button = '<img src="images/Music.png" alt="Music" class="nav-image2">'; // Change button Play Audio
+            }
+        });
+    </script>
+</body>
+
+</html>
